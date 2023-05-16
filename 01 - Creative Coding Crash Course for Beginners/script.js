@@ -3,9 +3,15 @@ const ctx = canvas.getContext('2d');
 canvas.width = 700;
 canvas.height = 800;
 
-//global settings
-ctx.lineWidth = 10;
-ctx.strokeStyle = 'red';
+// global settings
+ctx.lineWidth = 80;
+
+// canvas shadows
+ctx.shadowOffsetX = 2;
+ctx.shadowOffsetY = 2;
+ctx.shadowColor = 'grey';
+
+// gradients
 const gradient1 = ctx.createLinearGradient(0, 0, canvas.width, canvas.height);
 gradient1.addColorStop('0.2', 'pink');
 gradient1.addColorStop('0.3', 'red');
@@ -18,7 +24,11 @@ const gradient2 = ctx.createRadialGradient(canvas.width * 0.5 , canvas.height * 
 gradient2.addColorStop('0.4', 'turquoise');
 gradient2.addColorStop('0.6', 'violet');
 
-ctx.strokeStyle = gradient2;
+//canvas pattern
+const patternImage = document.getElementById('patternImage');
+const pattern1 = ctx.createPattern(patternImage, 'no-repeat');
+
+ctx.strokeStyle = gradient1;
 
 class Line {
     constructor(canvas){
@@ -68,7 +78,7 @@ class Line {
 }
 
 const linesArray = [];
-const numberOfLines = 100;
+const numberOfLines = 50;
 for (let i = 0; i < numberOfLines; i++){
     linesArray.push(new Line(canvas));
 }
