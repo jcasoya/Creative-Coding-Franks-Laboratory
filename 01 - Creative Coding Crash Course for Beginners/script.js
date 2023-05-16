@@ -43,6 +43,10 @@ class Line {
         this.speedY = 7;
         this.lifeSpan = this.maxLength * 3;
         this.timer = 0;
+        this.angle = 0;
+        this.va = Math.random() * 0.5 - 0.25;
+        this.curve = 0.1;
+        this.vc = Math.random() * 0.40 * 0.2;
     }
     draw(context){
         // context.strokeStyle = 'hsl(' + this.hue + ', 100%, 50%)';
@@ -56,9 +60,11 @@ class Line {
     }
     update(){
         this.timer++;
+        this.angle += this.va;
+        this.curve += this.vc;
         if (this.timer < this.lifeSpan){
-            this.x += this.speedX + Math.random() * 20 - 10;
-            this.y += this.speedY + Math.random() * 20 - 10;
+            this.x += Math.sin(this.angle) * this.curve;
+            this.y += Math.cos(this.angle) * this.curve;
             this.history.push({x: this.x, y: this.y});
             if (this.history.length > this.maxLength){
                 this.history.shift();
@@ -74,6 +80,8 @@ class Line {
         this.y = Math.random() * this.canvas.height;
         this.history = [{x: this.x, y: this.y}];
         this.timer = 0;
+        this.angle = 0;
+        this.curve = 0;
     }
 }
 
