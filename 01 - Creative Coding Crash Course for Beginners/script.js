@@ -3,26 +3,28 @@ const ctx = canvas.getContext('2d');
 canvas.width = 700;
 canvas.height = 800;
 
-ctx.fillStyle = 'red';
-ctx.fillRect(100, 150, 200, 150);
-ctx.lineWidth = 10;
-ctx.strokeStyle = 'blue';
-ctx.strokeRect(100, 150, 200, 150);
-
 //global settings
 ctx.lineWidth = 10;
 ctx.strokeStyle = 'red';
 
 class Line {
-    constructor(){
-        this.startX = Math.random() * canvas.width;
-        this.startY = Math.random() * canvas.height;
-        this.endX = Math.random() * canvas.width;
-        th
-        this.endY = Math.random() * canvas.height;
+    constructor(canvas){
+        this.canvas = canvas;
+        this.startX = Math.random() * this.canvas.width;
+        this.startY = Math.random() * this.canvas.height;
+        this.endX = Math.random() * this.canvas.width;
+        this.endY = Math.random() * this.canvas.height;
+        this.lineWidth = Math.floor(Math.random() * 15 + 1);
+        this.hue = Math.floor(Math.random() * 360);
     }
-    draw(){
-        ctx.beginPath();
-        ctx.moveTo(this.startX, this.startY);
+    draw(context){
+        context.strokeStyle = 'hsl(' + this.hue + ', 100%, 50%)';
+        context.lineWidth = this.lineWidth;
+        context.beginPath();
+        context.moveTo(this.startX, this.startY);
+        context.lineTo(this.endX, this.endY);
+        context.stroke();
     }
 }
+const line1 = new Line(canvas);
+line1.draw(ctx);
