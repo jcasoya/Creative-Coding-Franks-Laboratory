@@ -28,7 +28,7 @@ gradient2.addColorStop('0.6', 'violet');
 const patternImage = document.getElementById('patternImage');
 const pattern1 = ctx.createPattern(patternImage, 'no-repeat');
 
-ctx.strokeStyle = gradient1;
+ctx.strokeStyle = 'white';
 
 class Line {
     constructor(canvas){
@@ -36,12 +36,13 @@ class Line {
         this.x = Math.random() * this.canvas.width;
         this.y = Math.random() * this.canvas.height;
         this.history = [{x: this.x, y: this.y}];
-        this.lineWidth = Math.floor(Math.random() * 15 + 1);
+        this.lineWidth = Math.floor(Math.random() * 25 + 1);
         this.hue = Math.floor(Math.random() * 360);
         this.maxLength = Math.floor(Math.random() * 150 + 10);
         this.speedX = Math.random() * 1 - 0.5;
         this.speedY = 7;
-        this.lifeSpan = this.maxLength * 3;
+        this.lifeSpan = this.maxLength * 2;
+        this.breakPoint = this.lifespan * 0.85;
         this.timer = 0;
         this.angle = 0;
         this.va = Math.random() * 0.5 - 0.25;
@@ -63,6 +64,9 @@ class Line {
         this.angle += this.va;
         this.curve += this.vc;
         if (this.timer < this.lifeSpan){
+            if (this.timer > this.breakPoint){
+                this.va *= -1.12;
+            }
             this.x += Math.sin(this.angle) * this.curve;
             this.y += Math.cos(this.angle) * this.curve;
             this.history.push({x: this.x, y: this.y});
@@ -82,11 +86,12 @@ class Line {
         this.timer = 0;
         this.angle = 0;
         this.curve = 0;
+        this.va = Math.random() * 0.5 - 0.25;
     }
 }
 
 const linesArray = [];
-const numberOfLines = 50;
+const numberOfLines = 150;
 for (let i = 0; i < numberOfLines; i++){
     linesArray.push(new Line(canvas));
 }
