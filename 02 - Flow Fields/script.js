@@ -24,9 +24,13 @@ class Effect {
         this.width = width;
         this.height = height;
         this.particles = [];
+        this.numberOfParticles = 50;
     }
     init(){
-        this.particles.push(new Particle(this));
+        // create particles
+        for (let i=0; i < this.numberOfParticles; i++){
+            this.particles.push(new Particle(this));
+        }
     }
     render(context){
         this.particles.forEach(particle => {
@@ -34,3 +38,8 @@ class Effect {
         })
     }
 }
+
+const effect = new Effect(canvas.width, canvas.height);
+effect.init();
+effect.render(ctx);
+console.log(effect);
