@@ -17,7 +17,8 @@ class Particle {
         this.speedY = Math.random() * 5 -2.5;
         this.history = [{x: this.x, y: this.y}];
         this.maxLength = Math.floor(Math.random() * 100 + 10);
-    }
+        this.angle = 0;
+    } 
     draw(context){
         context.fillRect(this.x, this.y, 10, 10);
         context.beginPath();
@@ -28,8 +29,9 @@ class Particle {
         context.stroke();
     }
     update(){
-        this.x += this.speedX + Math.random() * 15 - 7.5;
-        this.y += this.speedY + Math.random() * 15 - 7.5;
+        this.angle += 0.5;
+        this.x += this.speedX + Math.sin(this.angle) * 8;
+        this.y += this.speedY + Math.cos(this.angle) * 8;
         this.history.push({x: this.x, y: this.y});
         if (this.history.length > this.maxLength){
             this.history.shift();
