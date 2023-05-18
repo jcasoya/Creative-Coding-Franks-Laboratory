@@ -27,5 +27,10 @@ myImage.addEventListener('load', function(){
                 this.x = Math.random() * canvas.width;
             }
         }
+        draw(){
+            ctx.beginPath();
+            ctx.fillStyle = 'white';
+            ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
+            ctx.fill();
     }
 });
