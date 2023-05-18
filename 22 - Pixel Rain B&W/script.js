@@ -36,7 +36,18 @@ myImage.addEventListener('load', function(){
     }
     function init(){
         for (let i = 0; i < numberOfParticles; i++){
-            particlesArray.push(new Particle);
+            particlesArray.push(new Particle); 
         }
     }
-}); 
+    init();
+    function animate(){
+        ctx.globalAlpha = 0.05;
+        ctx.fillStyle = 'rgb(0, 0, 0)';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        for (let i = 0; i < particlesArray.length; i++){
+            particlesArray[i].update();
+            particlesArray[i].draw();
+        }
+    }
+    animate();
+});  
