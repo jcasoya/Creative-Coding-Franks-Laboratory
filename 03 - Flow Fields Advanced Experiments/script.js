@@ -108,13 +108,22 @@ class Effect {
         // scan pixel data
         const pixels = this.context.getImageData(0, 0, this.width, this.height);
         console.log(pixels);
-
-        for (let y = 0; y < this.rows; y++){
-            for (let x = 0; x < this.cols; x++){
-                let angle = (Math.cos(x * this.zoom) + Math.sin(y * this.zoom)) * this.curve;
-                this.flowField.push(angle);
+        for (let y = 0; y < this.height; y += this.cellSize){
+            for (let x = 0; x < this.width; x += this.cellSize){
+                const index = (y * this.width + x) * 4;
+                const red = pixels[index];
+                const green = pixels[index + 1];
+                const blue = pixels[index + 2];
+                const alpha = pixels[index + 3];
             }
         }
+
+        // for (let y = 0; y < this.rows; y++){
+        //     for (let x = 0; x < this.cols; x++){
+        //         let angle = (Math.cos(x * this.zoom) + Math.sin(y * this.zoom)) * this.curve;
+        //         this.flowField.push(angle);
+        //     }
+        // }
 
         // create particles
         this.particles = [];
