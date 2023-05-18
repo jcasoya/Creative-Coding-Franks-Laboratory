@@ -32,5 +32,11 @@ myImage.addEventListener('load', function(){
             ctx.fillStyle = 'white';
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
+        }
     }
-});
+    function init(){
+        for (let i = 0; i < numberOfParticles; i++){
+            particlesArray.push(new Particle);
+        }
+    }
+}); 
