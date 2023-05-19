@@ -1,5 +1,5 @@
 const myImage = new Image();
-myImage.src = 'image.png';
+myImage.src = 'image1.png';
 
 myImage.addEventListener('load', function(){
     const canvas = document.getElementById('canvas1');
@@ -11,7 +11,7 @@ myImage.addEventListener('load', function(){
     const pixels = ctx.getImageData(0, 0, canvas.width, canvas.height);
 
     let = particlesArray = [];
-    const numberOfParticles = 5000;
+    const numberOfParticles = 10000;
 
     let mappedImage = [];
     for (let y = 0; y < canvas.height; y++){
@@ -40,19 +40,20 @@ myImage.addEventListener('load', function(){
     class Particle {
         constructor(){
             this.x = Math.random() * canvas.width;
-            this.y = 0;
-            this.speed = 0;
-            this.velocity = Math.random() * 3.5;
-            this.size = Math.random() * 1.5 + 1;
-            this.position1 = Math.floor(this.y);
-            this.position2 = Math.floor(this.x);
+            this.y = 100;
+            this.speed = 0.2;
+            this.velocity = 0.7;
+            this.size = 0.6;
+            this.position1 = 1;
+            this.position2 = 1;
         }
         update() {
             this.position1 = Math.floor(this.y);
             this.position2 = Math.floor(this.x);
             this.speed = mappedImage[this.position1][this.position2][0];
+            let movement = (2.5 - this.speed) + this.velocity;
 
-            this.y += this.velocity;
+            this.y += movement;
             if (this.y >= canvas.height){
                 this.y = 0;
                 this.x = Math.random() * canvas.width;
@@ -60,7 +61,7 @@ myImage.addEventListener('load', function(){
         }
         draw(){
             ctx.beginPath();
-            ctx.fillStyle = 'white';
+            ctx.fillStyle = 'yellow';
             ctx.arc(this.x, this.y, this.size, 0, Math.PI * 2);
             ctx.fill();
         }
@@ -72,8 +73,7 @@ myImage.addEventListener('load', function(){
     }
     init();
     function animate(){
-        ctx.drawImage(myImage, 0, 0, canvas.width, canvas.height);
-        ctx.globalAlpha = 0.05;
+        ctx.globalAlpha = 0.1;
         ctx.fillStyle = 'rgb(0, 0, 0)';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         for (let i = 0; i < particlesArray.length; i++){
